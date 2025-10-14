@@ -17,12 +17,12 @@ import { BsCartCheck } from "react-icons/bs";
 import { getRatingArray } from "../../helpers/utils";
 
 const Card = ({ product, inCart, inWishList }) => {
-  const { cart, setAddToCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const { handleCLickBtnAddToWishList } = useContext(WishListContext);
 
   // Add product to cart with initial quantity of 1
   function handleClickBtnAddToCart(product) {
-    setAddToCart([...cart, { ...product, quantity: 1 }]);
+    setCart([...cart, { ...product, quantity: 1 }]);
   }
 
   const rating = getRatingArray(product.rating);

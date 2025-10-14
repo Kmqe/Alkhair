@@ -50,7 +50,7 @@ const ProductDetails = () => {
   // State to store products fetched from the category API
   const [categoryProducts, setCategoryProducts] = useState([]);
 
-  const { cart, setAddToCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const { wishList, handleCLickBtnAddToWishList } = useContext(WishListContext);
   // Get the product ID from the URL parameters
   const { id } = useParams();
@@ -92,7 +92,7 @@ const ProductDetails = () => {
   }, [loading, cart, product.id]);
 
   function handleClickBtnAddToCart() {
-    setAddToCart([...cart, { ...product, quantity: 1 }]);
+    setCart([...cart, { ...product, quantity: 1 }]);
     setInCart(true);
   }
 

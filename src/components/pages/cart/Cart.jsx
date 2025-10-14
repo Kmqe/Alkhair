@@ -1,10 +1,12 @@
 import "./cart.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/ProductsContext";
 
 import cartIsEmpty2 from "../../images/cart_is_empty2.png";
 
 import { Link } from "react-router-dom";
+
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 // ICONS
 import { MdDeleteOutline } from "react-icons/md";
@@ -12,8 +14,11 @@ import { LuPlus } from "react-icons/lu";
 import { LuMinus } from "react-icons/lu";
 
 const Cart = () => {
+  // Custom hook to track and return the current screen width
+  const width = useWindowWidth();
+
   const { cart } = useContext(CartContext);
-  const { setAddToCart } = useContext(CartContext);
+  const { setCart } = useContext(CartContext);
 
   // Calculate subtotal when component loads based on cart items
   const [subTotal, setSubTotal] = useState(() => {
@@ -23,25 +28,12 @@ const Cart = () => {
     return total ? total : 0;
   });
 
-  // State to store the current screen width
-  const [widthScreen, setWidthScreen] = useState(window.innerWidth);
-
-  // Update the screen width state whenever the window is resized
-  useEffect(() => {
-    function calcSize() {
-      setWidthScreen(window.innerWidth);
-    }
-    window.addEventListener("resize", calcSize);
-    // Clean up the event listener on component unmount
-    return () => window.removeEventListener("resize", calcSize);
-  }, []);
-
   // Remove a specific product from the cart by its id
   function handleClickDelete(product) {
     const updateCart = cart.filter((item) => {
       return item.id !== product.id;
     });
-    setAddToCart(updateCart);
+    setCart(updateCart);
   }
 
   // Increase product quantity in cart if stock allows
@@ -54,7 +46,7 @@ const Cart = () => {
       setSubTotal((value) => value + product.price);
       return { ...product, quantity: product.quantity + 1 };
     });
-    setAddToCart(updateCart);
+    setCart(updateCart);
   }
 
   // Decrease product quantity in cart if it's more than 1
@@ -67,7 +59,7 @@ const Cart = () => {
       setSubTotal((value) => value - product.price);
       return { ...product, quantity: product.quantity - 1 };
     });
-    setAddToCart(updateCart);
+    setCart(updateCart);
   }
 
   return cart.length ? (
@@ -76,7 +68,7 @@ const Cart = () => {
         <div className="cart_products">
           <div
             className="cart-row"
-            style={{ display: widthScreen < 992 ? "none" : "" }}
+            style={{ display: width < 992 ? "none" : "" }}
           >
             <h3 className="text-center">DELETE</h3>
             <h3>PRODUCT</h3>
@@ -90,7 +82,7 @@ const Cart = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: widthScreen < 992 ? "flex-start" : "center",
+                  justifyContent: width < 992 ? "flex-start" : "center",
                 }}
               >
                 <span
@@ -137,7 +129,7 @@ const Cart = () => {
               </div>
               <div
                 className="total center"
-                style={{ display: widthScreen < 992 ? "none" : "" }}
+                style={{ display: width < 992 ? "none" : "" }}
               >
                 <h3>${(product.price * product.quantity).toFixed(2)}</h3>
               </div>

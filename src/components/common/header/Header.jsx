@@ -18,10 +18,11 @@ import { IoPerson } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import useScrollY from "../../hooks/useScrollY";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const Header = () => {
-  // State to store the current screen width
-  const [widthScreen, setWidthScreen] = useState(window.innerWidth);
+  // Custom hook to track and return the current screen width
+  const width = useWindowWidth();
   // State to control sidebar visibility (only shown on small screens)
   const [openSideBar, setOpenSideBar] = useState(false);
   // Custom hook that returns the current vertical scroll position
@@ -35,16 +36,6 @@ const Header = () => {
 
   const { cart } = useContext(CartContext);
   const { wishList } = useContext(WishListContext);
-
-  // Update the screen width state whenever the window is resized
-  useEffect(() => {
-    function calcSize() {
-      setWidthScreen(window.innerWidth);
-    }
-    window.addEventListener("resize", calcSize);
-    // Clean up the event listener on component unmount
-    return () => window.removeEventListener("resize", calcSize);
-  }, []);
 
   // Wait 1 second after typing stops, then fetch products from the API based on inputSearch
   useEffect(() => {
@@ -108,7 +99,7 @@ const Header = () => {
               </ul>
             </div>
           </div>
-          {widthScreen > 768 ? (
+          {width > 768 ? (
             <div className={`box-icon`}>
               <Link to={"/wishlist"} className="icon">
                 <FaRegHeart />

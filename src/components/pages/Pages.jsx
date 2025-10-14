@@ -1,5 +1,3 @@
-// React hooks
-import { useEffect, useState } from "react";
 //React Router Components for page rouging
 import { Route, Routes } from "react-router-dom";
 // Common layout component
@@ -18,29 +16,15 @@ import WishList from "./wishlist/WishList";
 import ProductsByCategory from "./ProductsByCategory/ProductsByCategory";
 // Search Results page
 import SearchResults from "./SearchResults/SearchResults";
+// Custom hook
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Pages = () => {
   // Initialize cart from localStorage or set it to an empty array
-  const [cart, setAddToCart] = useState(() => {
-    const foundCart = JSON.parse(localStorage.getItem("cart"));
-    return foundCart ? foundCart : [];
-  });
+  const [cart, setCart] = useLocalStorage("cart", []);
 
   // Initialize wishlist from localStorage or set it to an empty array
-  const [wishList, setWishList] = useState(() => {
-    const foundWishList = JSON.parse(localStorage.getItem("wish_list"));
-    return foundWishList ? foundWishList : [];
-  });
-
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  // Save wishlist to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("wish_list", JSON.stringify(wishList));
-  }, [wishList]);
+  const [wishList, setWishList] = useLocalStorage("wish_list", []);
 
   // Add or remove product from wishlist depending on its current presence
   function handleCLickBtnAddToWishList(product) {
@@ -52,10 +36,11 @@ const Pages = () => {
       setWishList([...wishList, product]);
     }
   }
+
   return (
     <>
       {/* Provide cart and wishlist context to the entire app with routing setup*/}
-      <CartContext.Provider value={{ cart, setAddToCart }}>
+      <CartContext.Provider value={{ cart, setCart }}>
         <WishListContext.Provider
           value={{ wishList, setWishList, handleCLickBtnAddToWishList }}
         >
