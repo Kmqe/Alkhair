@@ -1,3 +1,4 @@
+import useFetch from "../hooks/useFetch";
 import Products from "../product/Products";
 import ProductSkeleton from "../product/productSkeleton/ProductSkeleton";
 import { useEffect, useState } from "react";
@@ -27,6 +28,8 @@ const categories = [
 ];
 
 const Home = () => {
+  // const {abc: data} = useFetch()
+
   // State to store all fetched products grouped by category
   const [allProducts, setAllProducts] = useState([]);
   // State to track loading status
