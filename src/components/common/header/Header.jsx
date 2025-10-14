@@ -17,14 +17,15 @@ import { TiShoppingCart } from "react-icons/ti";
 import { IoPerson } from "react-icons/io5";
 import { FaBars } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
+import useScrollY from "../../hooks/useScrollY";
 
 const Header = () => {
   // State to store the current screen width
   const [widthScreen, setWidthScreen] = useState(window.innerWidth);
   // State to control sidebar visibility (only shown on small screens)
   const [openSideBar, setOpenSideBar] = useState(false);
-  // State to store the current scroll position (used to show/hide header or navbar)
-  const [scrollY, setScrollY] = useState(window.scrollY);
+  // Custom hook that returns the current vertical scroll position
+  const scrollY = useScrollY();
   // State to store the search text entered by the user for filtering products
   const [inputSearch, setInputSearch] = useState("");
   // State to store the list of products that match the search query (5 products only)
@@ -43,16 +44,6 @@ const Header = () => {
     window.addEventListener("resize", calcSize);
     // Clean up the event listener on component unmount
     return () => window.removeEventListener("resize", calcSize);
-  }, []);
-
-  // Update scroll position state when the user scrolls the page
-  useEffect(() => {
-    function calcScrollY() {
-      setScrollY(window.scrollY);
-    }
-    window.addEventListener("scroll", calcScrollY);
-    // Clean up the event listener when component unmounts
-    return () => window.removeEventListener("scroll", calcScrollY);
   }, []);
 
   // Wait 1 second after typing stops, then fetch products from the API based on inputSearch

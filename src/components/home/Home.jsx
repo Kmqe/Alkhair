@@ -1,4 +1,4 @@
-import useFetch from "../hooks/useFetch";
+// import useFetch from "../hooks/useFetch";
 import Products from "../product/Products";
 import ProductSkeleton from "../product/productSkeleton/ProductSkeleton";
 import { useEffect, useState } from "react";

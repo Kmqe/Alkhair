@@ -30,6 +30,7 @@ import ProductDetailsSkeleton from "./productDetailsSkeleton/ProductDetailsSkele
 // Import the Card component to display a product
 import Card from "../../product/Card";
 import ScrollToTop from "../../ScrollToTop";
+import { getRatingArray } from "../../../helpers/utils";
 
 const ProductDetails = () => {
   // Store the fetched product data
@@ -75,7 +76,7 @@ const ProductDetails = () => {
         setReviews(product.reviews);
         setLoading(false);
         setImgProduct(product.images[0]);
-        setRating(Array(Math.ceil(product.rating)).fill(0));
+        setRating(getRatingArray(product.rating));
         setCategoryProducts(category.products);
       } catch (error) {
         console.log("Failed to fetch product:", error);

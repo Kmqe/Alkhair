@@ -14,6 +14,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 import { FaShare } from "react-icons/fa";
 import { BsCartCheck } from "react-icons/bs";
+import { getRatingArray } from "../../helpers/utils";
 
 const Card = ({ product, inCart, inWishList }) => {
   const { cart, setAddToCart } = useContext(CartContext);
@@ -24,7 +25,7 @@ const Card = ({ product, inCart, inWishList }) => {
     setAddToCart([...cart, { ...product, quantity: 1 }]);
   }
 
-  const rating = Array(Math.ceil(product.rating)).fill(0);
+  const rating = getRatingArray(product.rating);
 
   return (
     <div className="card_product">
