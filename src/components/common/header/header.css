@@ -33,48 +33,6 @@ header .container {
   position: relative;
 }
 
-header .container .logo {
-  width: 150px;
-}
-
-header .container .search {
-  position: relative;
-  border: 2px solid #329b6b;
-  border-radius: 5px;
-  max-width: 500px;
-  width: 100%;
-}
-
-header .container .search form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-}
-
-header .container .search form input {
-  font-size: 18px;
-  width: 100%;
-}
-
-header .container .search form a {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  font-size: 26px;
-  right: 20px;
-  right: 0;
-  background-color: var(--primary_color);
-  height: 100%;
-  padding: 0 10px;
-  color: white;
-  cursor: pointer;
-}
-
-header .container .search form a.disabled {
-  pointer-events: none;
-}
-
 /* For big Screen */
 header .container .box-icon {
   display: flex;
@@ -186,67 +144,4 @@ header .container .btn {
   width: 20px;
   height: 20px;
   border-radius: 50px;
-}
-
-header .container .search .list-of-results {
-  display: none;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  position: absolute;
-  margin-top: 1px;
-  width: 100%;
-  background-color: #f6f6f6;
-  border-radius: 0 0 5px 5px;
-}
-
-header .container .search .list-of-results.show {
-  display: block;
-}
-
-header .container .search .list-of-results a {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 0 10px;
-}
-
-header .container .search .list-of-results a:hover {
-  background-color: #a7a7a723;
-}
-
-header .container .search .list-of-results a:last-child {
-  border: none;
-}
-
-header .container .search .list-of-results li {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  height: 61px;
-}
-
-header .container .search .list-of-results li img {
-  width: 40px;
-}
-
-header .container .search .list-of-results li p {
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-
-/*  */
-@media screen and (max-width: 568px) {
-  header .container .search form {
-    padding: 10px 35px 10px 10px;
-  }
-
-  header .container .search form input {
-    font-size: 15px;
-    width: 100%;
-  }
-
-  header .container .search form span {
-    font-size: 20px;
-  }
 }
