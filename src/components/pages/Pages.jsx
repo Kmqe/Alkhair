@@ -18,6 +18,7 @@ import ProductsByCategory from "./ProductsByCategory/ProductsByCategory";
 import SearchResults from "./SearchResults/SearchResults";
 // Custom hook
 import useLocalStorage from "../hooks/useLocalStorage";
+import { useCallback, useMemo } from "react";
 
 const Pages = () => {
   // Initialize cart from localStorage or set it to an empty array
@@ -26,24 +27,31 @@ const Pages = () => {
   // Initialize wishlist from localStorage or set it to an empty array
   const [wishList, setWishList] = useLocalStorage("wish_list", []);
 
-  // Add or remove product from wishlist depending on its current presence
-  function handleCLickBtnAddToWishList(product) {
-    const find = wishList.some((item) => item.id === product.id);
-    if (find) {
-      const newListOfWish = wishList.filter((item) => item.id !== product.id);
-      setWishList(newListOfWish);
-    } else {
-      setWishList([...wishList, product]);
-    }
-  }
+  const addOrRemoveWish = useCallback(
+    (product) => {
+      setWishList((prev) => {
+        const exists = prev.some((i) => i.id === product.id);
+        if (exists) return prev.filter((i) => i.id !== product.id);
+        return [...prev, product];
+      });
+    },
+    [setWishList]
+  );
+
+  const wishValue = useMemo(
+    () => ({
+      wishList,
+      setWishList,
+      toggleWishlistItem: addOrRemoveWish,
+    }),
+    [wishList, addOrRemoveWish]
+  );
 
   return (
     <>
       {/* Provide cart and wishlist context to the entire app with routing setup*/}
       <CartContext.Provider value={{ cart, setCart }}>
-        <WishListContext.Provider
-          value={{ wishList, setWishList, handleCLickBtnAddToWishList }}
-        >
+        <WishListContext.Provider value={wishValue}>
           <Header />
           <Routes>
             <Route path="" element={<Home />} />

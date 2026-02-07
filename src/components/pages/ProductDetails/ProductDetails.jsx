@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./product_details.css";
 // Import the format function from date-fns to format dates
 import { format } from "date-fns";
@@ -51,7 +53,8 @@ const ProductDetails = () => {
   const [categoryProducts, setCategoryProducts] = useState([]);
 
   const { cart, setCart } = useContext(CartContext);
-  const { wishList, handleCLickBtnAddToWishList } = useContext(WishListContext);
+  const { wishList, toggleWishlistItem } = useContext(WishListContext);
+
   // Get the product ID from the URL parameters
   const { id } = useParams();
 
@@ -145,7 +148,7 @@ const ProductDetails = () => {
               <span
                 className={`${inWishList ? "in-wish-list" : ""}`}
                 onClick={() => {
-                  handleCLickBtnAddToWishList(product);
+                  toggleWishlistItem(product);
                 }}
               >
                 {" "}
@@ -261,4 +264,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default React.memo(ProductDetails);

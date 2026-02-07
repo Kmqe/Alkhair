@@ -1,5 +1,7 @@
 import "./products.css";
 
+import React from "react";
+
 import { useContext } from "react";
 import { CartContext } from "../context/ProductsContext";
 import { WishListContext } from "../context/ProductsContext";
@@ -69,4 +71,4 @@ const Products = ({ category, productsOfArray }) => {
   );
 };
 
-export default Products;
+export default React.memo(Products);

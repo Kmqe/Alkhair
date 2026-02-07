@@ -5,8 +5,8 @@ import Card from "../../product/Card";
 import "../../product/productSkeleton/ProductSkeleton";
 
 const WishList = () => {
-  const { wishList } = useContext(WishListContext);
   const { cart } = useContext(CartContext);
+  const { wishList } = useContext(WishListContext);
 
   return (
     <section className="wish-list">

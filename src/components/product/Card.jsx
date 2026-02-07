@@ -1,5 +1,7 @@
 import "./card.css";
 
+import React from "react";
+
 // Link component for navigation between routes
 import { Link } from "react-router-dom";
 
@@ -18,7 +20,7 @@ import { getRatingArray } from "../../helpers/utils";
 
 const Card = ({ product, inCart, inWishList }) => {
   const { cart, setCart } = useContext(CartContext);
-  const { handleCLickBtnAddToWishList } = useContext(WishListContext);
+  const { toggleWishlistItem } = useContext(WishListContext);
 
   // Add product to cart with initial quantity of 1
   function handleClickBtnAddToCart(product) {
@@ -42,7 +44,7 @@ const Card = ({ product, inCart, inWishList }) => {
           <span
             className={`${inWishList ? "in-wish-list" : ""}`}
             onClick={() => {
-              handleCLickBtnAddToWishList(product);
+              toggleWishlistItem(product);
             }}
           >
             {" "}
@@ -105,4 +107,4 @@ const Card = ({ product, inCart, inWishList }) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);
